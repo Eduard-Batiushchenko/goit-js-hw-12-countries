@@ -7,11 +7,9 @@ import debounce from 'lodash.debounce';
 refs.input.addEventListener('input', debounce(findCountry, 500));
 
 function findCountry() {
-  fetchCountries(this.inputText)
-    .then(countries => createMarkup(countries))
-    .catch(clearMarkup);
-}
-
-function clearMarkup() {
-  refs.container.innerHTML = '';
+  if (refs.input.value === '') {
+    refs.container.innerHTML = '';
+    return;
+  }
+  fetchCountries(this.inputText).then(countries => createMarkup(countries));
 }
